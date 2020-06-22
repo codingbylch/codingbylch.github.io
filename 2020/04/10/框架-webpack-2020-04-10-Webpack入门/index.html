@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="个人学习记录博客, 从这里开始吧"><title>Webpack入门 | 心平气和</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.1/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.1/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.1/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Webpack入门</h1><a id="logo" href="/.">心平气和</a><p class="description">^_^</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tags"> 标签</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/demoShow/"><i class="fa fa-reddit-alien"> 演示</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Webpack入门</h1><div class="post-meta">Apr 10, 2020<span> | </span><span class="category"><a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><a class="disqus-comment-count" href="/2020/04/10/%E6%A1%86%E6%9E%B6-webpack-2020-04-10-Webpack%E5%85%A5%E9%97%A8/#vcomment"><span class="valine-comment-count" data-xid="/2020/04/10/%E6%A1%86%E6%9E%B6-webpack-2020-04-10-Webpack%E5%85%A5%E9%97%A8/"></span><span> 条评论</span></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#总结："><span class="toc-number">1.</span> <span class="toc-text">总结：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正式使用Webpack"><span class="toc-number">2.</span> <span class="toc-text">正式使用Webpack</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#生成Source-Maps-（让调试更容易）"><span class="toc-number">2.1.</span> <span class="toc-text">生成Source Maps （让调试更容易）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用webpack构建本地服务器"><span class="toc-number">2.2.</span> <span class="toc-text">使用webpack构建本地服务器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Loaders"><span class="toc-number">3.</span> <span class="toc-text">Loaders</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Babel"><span class="toc-number">3.1.</span> <span class="toc-text">Babel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-module"><span class="toc-number">3.2.</span> <span class="toc-text">CSS module</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS预处理器"><span class="toc-number">3.3.</span> <span class="toc-text">CSS预处理器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插件"><span class="toc-number">4.</span> <span class="toc-text">插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#产品阶段的构建"><span class="toc-number">4.1.</span> <span class="toc-text">产品阶段的构建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一些优化插件："><span class="toc-number">4.1.1.</span> <span class="toc-text">一些优化插件：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#缓存"><span class="toc-number">4.1.2.</span> <span class="toc-text">缓存</span></a></li></ol></li></ol></li></ol></div></div><div class="post-content"><p>简介：对webpack基础操作的总结。</p>
+<a id="more"></a>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><ul>
+<li>什么是webpack?<br>webpack是“模块打包机”，本质上就是一个将我们写的模块化代码转成现代浏览器可直接执行的代码。webpack可以为我们整合很多服务。如：<ul>
+<li>热更新服务(代码保存自动展现最新代码)</li>
+<li>代理服务（调后端接口不跨域）</li>
+<li>翻译服务（es6\es7转兼容）</li>
+<li>压缩打包服务（项目上线，压缩代码压缩图片）</li>
+<li>自动上传服务（自动将静态资源上次CDN）</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Source Maps：<br>有时候我们打包后的文件若出错则不容易调试，使用Source Maps能让我们知道对应源代码出错的位置，更容易调试。</p>
+</li>
+<li><p>Loader:<br>使用loader，webpack有能力调用外部的脚本或工具，实现对不同格式的文件的处理。<br>譬如：Sass转css，ES6语法的JS转为浏览器可兼容的JS，React的JSX转为JS<br>用到的工具或脚本：</p>
+<ul>
+<li>Babel：是一个JS编译平台。作用：让ES6、ES7转为浏览器兼容的语法；可使用拓展的语言，如React的JSX，之后会帮助转为JS。</li>
+<li>css-loader 和 style-loader</li>
+<li>CSS预处理器：Sass和Less之类的预处理器，是对原生CSS的扩展，能使用类似于variables,nesting,mixins等不存在于css中的特性来写css。CSS预处理器将这些特殊类型语句转化为浏览器能识别的CSS语句。<ul>
+<li>常用的CSS预处理器：Less Loader, Sass Loader, Stylus Loader</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>插件(Plugins):<br>插件是用来扩展webpack的功能的，会在整个构建过程中生效，并执行相应的任务。与Loader不同，Loader是对打包构建过程中对源文件进行处理，Plugins是在整个构建过程都起作用。<br>用到的一些插件：</p>
+<ul>
+<li>HtmlWebpackPlugin：根据模板自动生成index.html；</li>
+<li>BannerPlugin：添加版权声明的插件；</li>
+<li>Hot Module Replacement：允许修改组件代码后，自动刷新实时预览效果。</li>
+</ul>
+</li>
+<li><p>产品阶段的构建所用的一些优化插件：在产品阶段还需要对打包的文件进行额外的处理，如优化、压缩、缓存、分离CSS和JS。</p>
+<ul>
+<li>优化插件：OccurenceOrderPlugin（为组件分配ID）、UglifyJsPlugin（压缩JS代码）、ExtractTextPlugin（分离CSS和JS）</li>
+<li>缓存：CleanWebpackPlugin（清理build中的残余文件）</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="正式使用Webpack"><a href="#正式使用Webpack" class="headerlink" title="正式使用Webpack"></a>正式使用Webpack</h2><p><code>{extry file}出填写入口文件的路径，本文中就是上述main.js的路径，
+{destination for bundled file}处填写打包文件的存放路径
+填写路径的时候不用添加{}
+webpack {entry file} {destination for bundled file}</code><br>这里我无法直接用上面的语句，估计是改了</p>
+<p>但可以通过配置文件webpack.config.js中的entry和output，然后在终端使用webpack<br>但依然不行，估计也是改了。</p>
+<p>还可以通过npm来引导执行任务，这样就不用输入webpack了：<br>在package.json中对scripts对象进行相关设置：”start”:”webpack”<br>注：package.json中的script会安装一定顺序寻找命令对应位置，本地的node_modules/.bin路径就在这个寻找清单中<br>现在可以通过 npm start 来运行webpack进行打包文件了</p>
+<h3 id="生成Source-Maps-（让调试更容易）"><a href="#生成Source-Maps-（让调试更容易）" class="headerlink" title="生成Source Maps （让调试更容易）"></a>生成Source Maps （让调试更容易）</h3><p>在webpack.config.js中配置”devtool”:eval-source-map</p>
+<h3 id="使用webpack构建本地服务器"><a href="#使用webpack构建本地服务器" class="headerlink" title="使用webpack构建本地服务器"></a>使用webpack构建本地服务器</h3><p>npm install –save-dev webpack-dev-server<br>把命令加入到webpack.config.js中：<br>devServer: {<br>    contentBase: “./public”,//本地服务器所加载的页面所在的目录<br>    historyApiFallback: true,//不跳转<br>    inline: true//实时刷新<br>  } </p>
+<p>在终端输入：npm run server<br>就可以开启本地服务器了！</p>
+<p>一般的流程就是：终端输入相应命令安装，然后配置文件webpack.config或是webpack.production.config.js修改\新增对应的配置<br>然后就可以使用了</p>
+<h2 id="Loaders"><a href="#Loaders" class="headerlink" title="Loaders"></a>Loaders</h2><p>通过使用不同的loader，webpack有能力调用外部的脚本或工具，实现对不同格式的文件的处理，<br>比如说分析转换scss为css，或者把下一代的JS文件（ES6，ES7)转换为现代浏览器兼容的JS文件<br>对React的开发而言，合适的Loaders可以把React的中用到的JSX文件转换为JS文件。</p>
+<p>一切皆模块：webpack把所有文件都当作模块来处理，js代码、css和fonts以及图片等都能通过合适的loader来进行处理</p>
+<p>CSS: css-loader style-loader</p>
+<h3 id="Babel"><a href="#Babel" class="headerlink" title="Babel"></a>Babel</h3><p>能帮我们完成：使用最新的ES6 ES7的JS代码，而不用管当前使用的浏览器兼容性<br>能让我们使用基于JS的扩展语言，比如React的JSX</p>
+<h3 id="CSS-module"><a href="#CSS-module" class="headerlink" title="CSS module"></a>CSS module</h3><p>CSS样式巨大且充满了全局类名，维护和修改很麻烦。于是类似于JS的模块化思想的css modules的技术。通过css模块，所有的类名，动画名默认都只作用于当前模块。<br>webpack对css modules有很好的支持，只需在css loader中进行简单配置即可。</p>
+<h3 id="CSS预处理器"><a href="#CSS预处理器" class="headerlink" title="CSS预处理器"></a>CSS预处理器</h3><p>Sass  Less 是对原生CSS的扩展, 允许我们使用variables,nesting,mixins,inheritance等不存在于css中的特性来写css<br>CSS预处理器会将这些特殊类型的语句转化为浏览器可识别的CSS语句<br>webpack可使用相关的loader进行配置：<br>Less Loader<br>Sass Loader<br>Stylus Loader</p>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><p>就是用来拓展webpack的功能，在整个构建过程中都起作用。比如我们可以给打包后的代码添加版权声明的插件。<br>另外还有一些常用的插件：HtmlWebpackPlugin会根据文件模板来帮我们自动生成index.html文件。<br>Hot Module Replacement插件实现了保存后浏览器自动刷新呈现最新数据，可以通过配置babel的对应插件来实现（因为webpack对应的插件比较难配置）</p>
+<h3 id="产品阶段的构建"><a href="#产品阶段的构建" class="headerlink" title="产品阶段的构建"></a>产品阶段的构建</h3><p>在产品阶段，可能还需要对打包的文件进行额外的处理，比如优化、压缩、缓存、分离CSS和JS<br>创建一个webpack.production.config.js的文件，和webpack.config.js很像</p>
+<h4 id="一些优化插件："><a href="#一些优化插件：" class="headerlink" title="一些优化插件："></a>一些优化插件：</h4><p>OccurenceOrderPlugin :为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID<br>UglifyJsPlugin：压缩JS代码<br>ExtractTextPlugin：分离CSS和JS文件</p>
+<h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><p>修改webpack.production.config.js中filename:”bundle-[hsah].js”<br>然后 npm run build 就可以在build文件夹中看到bundle-xxxx.js的缓存了<br>但缓存会越来越多，因此需要一个清除残余文件的插件：clean-webpack-plugin<br>然后再修改配置文件中相应的位置</p>
+<hr>
+<p>参考资料：</p>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/42e11515c10f" target="_blank" rel="noopener">入门Webpack，看这篇就够了</a><br><a href="https://segmentfault.com/a/1190000015973544" target="_blank" rel="noopener">我们为什么需要webpack</a></p>
+</blockquote>
+<hr>
+<p><a href="https://github.com/codingbylch/DailyLearning" target="_blank" rel="noopener">基于webpack: ^4.42.1的简单demo实践</a></p>
+</div><div class="tags"><a href="/tags/JS/">JS</a></div><div class="post-nav"><a class="pre" href="/2020/04/16/JS%E7%9B%B8%E5%85%B3-2020-04-16-%E7%AC%AC%E5%8D%81%E7%AB%A0-DOM%E5%9F%BA%E7%A1%80/">第十章-DOM基础</a><a class="next" href="/2020/04/08/CSS%E7%9B%B8%E5%85%B3-2020-04-08-CSS%E5%B8%83%E5%B1%80%E7%9B%B8%E5%85%B3/">CSS布局相关</a></div><div id="vcomment"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script><script>var notify = 'false' ? true : false;
+var verify = 'false' ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'Fr37gA6FmBqLSAcaSAxrdyOw-gzGzoHsz',
+  appKey:'YWEJwHPUixRYKn7WgjJxrKHn',
+  placeholder:'Just so so',
+  avatar:'mm',
+  guest_info:guest_info,
+  pageSize:'10'
+})</script></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/05/04/%E5%85%B6%E5%AE%83-2020-05-04-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3/">操作系统相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/17/%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3-2020-04-17-TCP%E6%8F%A1%E6%89%8B%E3%80%81%E6%8C%A5%E6%89%8B%E6%80%BB%E7%BB%93/">TCP握手、挥手总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/16/JS%E7%9B%B8%E5%85%B3-2020-04-16-%E7%AC%AC%E5%8D%81%E7%AB%A0-DOM%E5%9F%BA%E7%A1%80/">第十章-DOM基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/10/%E6%A1%86%E6%9E%B6-webpack-2020-04-10-Webpack%E5%85%A5%E9%97%A8/">Webpack入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/08/CSS%E7%9B%B8%E5%85%B3-2020-04-08-CSS%E5%B8%83%E5%B1%80%E7%9B%B8%E5%85%B3/">CSS布局相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/03/JS%E7%9B%B8%E5%85%B3-2020-04-03-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3ES6-%E7%B1%BB/">Class的基本语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/02/JS%E7%9B%B8%E5%85%B3-2020-04-02-Promise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/">Promise与异步编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/02/JS%E7%9B%B8%E5%85%B3-2020-04-02-%E5%B8%B8%E8%A7%81%E7%9A%84DOM%E6%93%8D%E4%BD%9C%E6%96%B9%E5%BC%8F/">常见的DOM操作方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/01/JS%E7%9B%B8%E5%85%B3-2020-04-01-Ajax%E4%B8%8EComet/">Ajax的一些基本操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/31/CSS%E7%9B%B8%E5%85%B3-2020-03-31-CSS-%E8%83%8C%E6%99%AF%E4%B8%8E%E8%BE%B9%E6%A1%86/">CSS - 背景与边框</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://chochi1st.github.io" title="Chochi" target="_blank">Chochi</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">心平气和.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

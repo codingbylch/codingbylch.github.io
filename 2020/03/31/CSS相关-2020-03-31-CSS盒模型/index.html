@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="个人学习记录博客, 从这里开始吧"><title>CSS - 层叠与继承、选择器、盒模型 | 心平气和</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.1/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.1/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.1/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">CSS - 层叠与继承、选择器、盒模型</h1><a id="logo" href="/.">心平气和</a><p class="description">^_^</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tags"> 标签</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/demoShow/"><i class="fa fa-reddit-alien"> 演示</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">CSS - 层叠与继承、选择器、盒模型</h1><div class="post-meta">Mar 31, 2020<span> | </span><span class="category"><a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><a class="disqus-comment-count" href="/2020/03/31/CSS%E7%9B%B8%E5%85%B3-2020-03-31-CSS%E7%9B%92%E6%A8%A1%E5%9E%8B/#vcomment"><span class="valine-comment-count" data-xid="/2020/03/31/CSS%E7%9B%B8%E5%85%B3-2020-03-31-CSS%E7%9B%92%E6%A8%A1%E5%9E%8B/"></span><span> 条评论</span></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS层叠与继承"><span class="toc-number">1.</span> <span class="toc-text">CSS层叠与继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS选择器"><span class="toc-number">2.</span> <span class="toc-text">CSS选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#块级盒子与内联盒子"><span class="toc-number">3.</span> <span class="toc-text">块级盒子与内联盒子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是CSS-盒模型"><span class="toc-number">4.</span> <span class="toc-text">什么是CSS 盒模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#盒模型的各个部分"><span class="toc-number">4.1.</span> <span class="toc-text">盒模型的各个部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准-standard-盒模型"><span class="toc-number">4.2.</span> <span class="toc-text">标准(standard)盒模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#替代-alternate-盒模型"><span class="toc-number">4.3.</span> <span class="toc-text">替代(alternate)盒模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#外边距，内边距，边框"><span class="toc-number">5.</span> <span class="toc-text">外边距，内边距，边框</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#外边距"><span class="toc-number">5.1.</span> <span class="toc-text">外边距</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#边框"><span class="toc-number">5.2.</span> <span class="toc-text">边框</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内边距"><span class="toc-number">5.3.</span> <span class="toc-text">内边距</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#盒子模型和内联盒子"><span class="toc-number">6.</span> <span class="toc-text">盒子模型和内联盒子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用display-inline-block"><span class="toc-number">7.</span> <span class="toc-text">使用display: inline-block</span></a></li></ol></div></div><div class="post-content"><p>主要内容：</p>
+<ul>
+<li>CSS层叠与继承</li>
+<li>CSS选择器</li>
+<li>CSS盒模型</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="CSS层叠与继承"><a href="#CSS层叠与继承" class="headerlink" title="CSS层叠与继承"></a>CSS层叠与继承</h2><p><img src="https://raw.githubusercontent.com/codingbylch/Figure_bed_for_blog/master/img_for_blog/20200331145405.png" alt=""></p>
+<h2 id="CSS选择器"><a href="#CSS选择器" class="headerlink" title="CSS选择器"></a>CSS选择器</h2><p><img src="https://raw.githubusercontent.com/codingbylch/Figure_bed_for_blog/master/img_for_blog/20200331145433.png" alt=""></p>
+<h2 id="块级盒子与内联盒子"><a href="#块级盒子与内联盒子" class="headerlink" title="块级盒子与内联盒子"></a>块级盒子与内联盒子</h2><p><img src="https://raw.githubusercontent.com/codingbylch/Figure_bed_for_blog/master/img_for_blog/20200331145607.png" alt=""></p>
+<h2 id="什么是CSS-盒模型"><a href="#什么是CSS-盒模型" class="headerlink" title="什么是CSS 盒模型"></a>什么是CSS 盒模型</h2><p>完整的 CSS 盒模型应用于<strong>块级盒子</strong>，内联盒子只使用盒模型中定义的部分内容。</p>
+<h3 id="盒模型的各个部分"><a href="#盒模型的各个部分" class="headerlink" title="盒模型的各个部分"></a>盒模型的各个部分</h3><ul>
+<li>Content box: 这个区域是用来显示内容，大小可以通过设置 width 和 height.</li>
+<li>Padding box: 包围在内容区域外部的空白区域； 大小通过 padding 相关属性设置。</li>
+<li>Border box: 边框盒包裹内容和内边距。大小通过 border 相关属性设置。</li>
+<li>Margin box: 这是最外面的区域，是盒子和其他元素之间的空白区域。大小通过 margin 相关属性设置。<br><img src="https://raw.githubusercontent.com/codingbylch/Figure_bed_for_blog/master/img_for_blog/20200331141129.png" alt="盒模型"></li>
+</ul>
+<h3 id="标准-standard-盒模型"><a href="#标准-standard-盒模型" class="headerlink" title="标准(standard)盒模型"></a>标准(standard)盒模型</h3><p>计算以下盒子的实际宽度和高，为410px和210px：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">350px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">25px</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">25px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">5px</span> solid black;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注: margin 不计入实际大小 —— 当然，它会影响盒子在页面所占空间<br><img src="https://raw.githubusercontent.com/codingbylch/Figure_bed_for_blog/master/img_for_blog/20200331142349.png" alt="标准盒模型"></p>
+</blockquote>
+<h3 id="替代-alternate-盒模型"><a href="#替代-alternate-盒模型" class="headerlink" title="替代(alternate)盒模型"></a>替代(alternate)盒模型</h3><p>css还有一个替代盒模型。使用这个模型，所有宽度都是可见宽度，所以内容宽度是该宽度减去边框和填充部分。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123; </span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/codingbylch/Figure_bed_for_blog/master/img_for_blog/20200331142327.png" alt="替代盒模型"></p>
+<blockquote>
+<p>可使用调试工具来查看盒模型。<br><img src="https://raw.githubusercontent.com/codingbylch/Figure_bed_for_blog/master/img_for_blog/20200331143126.png" alt=""></p>
+</blockquote>
+<h2 id="外边距，内边距，边框"><a href="#外边距，内边距，边框" class="headerlink" title="外边距，内边距，边框"></a>外边距，内边距，边框</h2><h3 id="外边距"><a href="#外边距" class="headerlink" title="外边距"></a>外边距</h3><p>外边距属性值可以为正也可以为负。设置负值会导致和其他内容重叠。<br>可以使用margin属性一次控制一个元素的所有边距，或者单独设置：</p>
+<ul>
+<li>margin-top</li>
+<li>margin-right</li>
+<li>margin-bottom</li>
+<li>margin-left</li>
+</ul>
+<p><strong>外边距折叠</strong>：如果你有两个外边距相接的元素，这些外边距将合并为一个外边距，即最大的单个外边距的大小。</p>
+<h3 id="边框"><a href="#边框" class="headerlink" title="边框"></a>边框</h3><p>为边框设置样式时，有大量的属性可以使用——有四个边框，每个边框都有样式、宽度和颜色，我们可能需要对它们进行操作。<br>可以使用<strong>border属性</strong>一次设置所有四个边框的宽度、颜色和样式。<br>分别设置每边的宽度、颜色和样式，可以使用：</p>
+<ul>
+<li>border-top</li>
+<li>border-right</li>
+<li>border-bottom</li>
+<li>border-left</li>
+</ul>
+<p>设置所有边的颜色、样式或宽度，请使用以下属性：</p>
+<ul>
+<li>border-width</li>
+<li>border-style</li>
+<li>border-color</li>
+</ul>
+<p>设置单边的颜色、样式或宽度，可以使用最细粒度的普通属性之一：</p>
+<ul>
+<li>border-top-width</li>
+</ul>
+<h3 id="内边距"><a href="#内边距" class="headerlink" title="内边距"></a>内边距</h3><p>与外边距不同，您不能有负数量的内边距，所以值必须<strong>是0或正的值</strong>。应用于元素的任何背景都将显示在内边距后面，内边距通常用于<strong>将内容推离边框</strong>。<br>我们可以使用<strong>padding</strong>简写属性控制元素所有边，或者每边单独使用等价的普通属性：</p>
+<ul>
+<li>padding-top</li>
+</ul>
+<h2 id="盒子模型和内联盒子"><a href="#盒子模型和内联盒子" class="headerlink" title="盒子模型和内联盒子"></a>盒子模型和内联盒子</h2><p><img src="https://raw.githubusercontent.com/codingbylch/Figure_bed_for_blog/master/img_for_blog/20200331144920.png" alt="内联盒子"><br>可以看到，宽度和高度被忽略了。外边距、内边距和边框是生效的，但它们不会改变其他内容与内联盒子的关系</p>
+<h2 id="使用display-inline-block"><a href="#使用display-inline-block" class="headerlink" title="使用display: inline-block"></a>使用display: inline-block</h2><p><img src="https://raw.githubusercontent.com/codingbylch/Figure_bed_for_blog/master/img_for_blog/20200331145009.png" alt="inline-block"></p>
+</div><div class="tags"><a href="/tags/CSS/">CSS</a></div><div class="post-nav"><a class="pre" href="/2020/03/31/CSS%E7%9B%B8%E5%85%B3-2020-03-31-CSS-%E6%BA%A2%E5%87%BA/">CSS - 溢出</a><a class="next" href="/2020/03/30/%E5%85%B6%E5%AE%83-2020-03-30-%E5%8F%91%E9%80%81%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE/">HTML - 表单相关</a></div><div id="vcomment"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script><script>var notify = 'false' ? true : false;
+var verify = 'false' ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'Fr37gA6FmBqLSAcaSAxrdyOw-gzGzoHsz',
+  appKey:'YWEJwHPUixRYKn7WgjJxrKHn',
+  placeholder:'Just so so',
+  avatar:'mm',
+  guest_info:guest_info,
+  pageSize:'10'
+})</script></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/05/04/%E5%85%B6%E5%AE%83-2020-05-04-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3/">操作系统相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/17/%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3-2020-04-17-TCP%E6%8F%A1%E6%89%8B%E3%80%81%E6%8C%A5%E6%89%8B%E6%80%BB%E7%BB%93/">TCP握手、挥手总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/16/JS%E7%9B%B8%E5%85%B3-2020-04-16-%E7%AC%AC%E5%8D%81%E7%AB%A0-DOM%E5%9F%BA%E7%A1%80/">第十章-DOM基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/10/%E6%A1%86%E6%9E%B6-webpack-2020-04-10-Webpack%E5%85%A5%E9%97%A8/">Webpack入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/08/CSS%E7%9B%B8%E5%85%B3-2020-04-08-CSS%E5%B8%83%E5%B1%80%E7%9B%B8%E5%85%B3/">CSS布局相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/03/JS%E7%9B%B8%E5%85%B3-2020-04-03-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3ES6-%E7%B1%BB/">Class的基本语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/02/JS%E7%9B%B8%E5%85%B3-2020-04-02-Promise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/">Promise与异步编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/02/JS%E7%9B%B8%E5%85%B3-2020-04-02-%E5%B8%B8%E8%A7%81%E7%9A%84DOM%E6%93%8D%E4%BD%9C%E6%96%B9%E5%BC%8F/">常见的DOM操作方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/01/JS%E7%9B%B8%E5%85%B3-2020-04-01-Ajax%E4%B8%8EComet/">Ajax的一些基本操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/31/CSS%E7%9B%B8%E5%85%B3-2020-03-31-CSS-%E8%83%8C%E6%99%AF%E4%B8%8E%E8%BE%B9%E6%A1%86/">CSS - 背景与边框</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://chochi1st.github.io" title="Chochi" target="_blank">Chochi</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">心平气和.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

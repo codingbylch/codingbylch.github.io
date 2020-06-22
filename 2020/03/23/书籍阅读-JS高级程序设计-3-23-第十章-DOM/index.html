@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="个人学习记录博客, 从这里开始吧"><title>第十章 - DOM | 心平气和</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.1/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.1/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.1/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">第十章 - DOM</h1><a id="logo" href="/.">心平气和</a><p class="description">^_^</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tags"> 标签</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/demoShow/"><i class="fa fa-reddit-alien"> 演示</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">第十章 - DOM</h1><div class="post-meta">Mar 23, 2020<span> | </span><span class="category"><a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><a class="disqus-comment-count" href="/2020/03/23/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-JS%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-3-23-%E7%AC%AC%E5%8D%81%E7%AB%A0-DOM/#vcomment"><span class="valine-comment-count" data-xid="/2020/03/23/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-JS%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-3-23-%E7%AC%AC%E5%8D%81%E7%AB%A0-DOM/"></span><span> 条评论</span></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#10-1-节点层次"><span class="toc-number">1.</span> <span class="toc-text">10.1 节点层次</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#10-1-1-Node类型"><span class="toc-number">1.1.</span> <span class="toc-text">10.1.1 Node类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-1-2-Document类型"><span class="toc-number">1.2.</span> <span class="toc-text">10.1.2 Document类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-1-3-Element类型"><span class="toc-number">1.3.</span> <span class="toc-text">10.1.3 Element类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-3-小结"><span class="toc-number">2.</span> <span class="toc-text">10.3 小结</span></a></li></ol></div></div><div class="post-content"><p>本章内容 </p>
+<ul>
+<li>理解包含不同层次节点的 DOM </li>
+<li>使用不同的节点类型 </li>
+<li>克服浏览器兼容性问题及各种陷阱 </li>
+</ul>
+<p>DOM（文档对象模型）是针对 HTML 和 XML 文档的一个 API（应用程序编程接口）。DOM 描绘了一个<strong>层次化的节点树</strong>，允许开发人员添加、移除和修改页面的某一部分。</p>
+<h2 id="10-1-节点层次"><a href="#10-1-节点层次" class="headerlink" title="10.1 节点层次"></a>10.1 节点层次</h2><p>在 HTML 页面中，<strong>文档元素</strong>始终都是<html>元素。在 XML 中，没有预定义的元素，因此任何元素都可能成为文档元素。<br>HTML 文档表示为一个层次结构：<br><img src="https://raw.githubusercontent.com/codingbylch/Figure_bed_for_blog/master/img_for_blog/20200323212317.png" alt="DOM树"></p>
+<h3 id="10-1-1-Node类型"><a href="#10-1-1-Node类型" class="headerlink" title="10.1.1 Node类型"></a>10.1.1 Node类型</h3><p>DOM1 级定义了一个 Node 接口，该接口将由 DOM 中的所有节点类型实现。每个节点都有一个 <strong>nodeType</strong> 属性，用于表明节点的类型。节点类型由在 Node 类型中定义的下列12 个数值常量来表示，任何节点类型必居其一： </p>
+<ul>
+<li>Node.ELEMENT_NODE(1)； </li>
+<li>Node.ATTRIBUTE_NODE(2)； </li>
+<li>Node.TEXT_NODE(3)； </li>
+<li>Node.CDATA_SECTION_NODE(4)； </li>
+<li>Node.ENTITY_REFERENCE_NODE(5)； </li>
+<li>Node.ENTITY_NODE(6)； </li>
+<li>Node.PROCESSING_INSTRUCTION_NODE(7)； </li>
+<li>Node.COMMENT_NODE(8)；</li>
+<li>Node.DOCUMENT_NODE(9)； </li>
+<li>Node.DOCUMENT_TYPE_NODE(10)； </li>
+<li>Node.DOCUMENT_FRAGMENT_NODE(11)； </li>
+<li>Node.NOTATION_NODE(12)。</li>
+</ul>
+<ol>
+<li>nodeName 和 nodeValue 属性<br>要了解节点的具体信息，可以使用 <strong>nodeName</strong> 和 <strong>nodeValue</strong> 这两个属性。这两个属性的值完全取决于节点的类型。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (someNode.nodeType == <span class="number">1</span>)&#123; </span><br><span class="line"> value = someNode.nodeName; <span class="comment">//nodeName 的值是元素的标签名 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>节点关系<br>文档中所有的节点之间都存在这样或那样的关系。每个节点都有一个 <strong>childNodes</strong> 属性，其中保存着一个 NodeList 对象。NodeList 是一种类数组对象，用于保存一组有序的节点，可以通过位置来访问这些节点。如何访问保存在 NodeList 中的节点——可以通过方括号，也可以使用 item()方法。 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> firstChild = someNode.childNodes[<span class="number">0</span>]; </span><br><span class="line"><span class="keyword">var</span> secondChild = someNode.childNodes.item(<span class="number">1</span>); </span><br><span class="line"><span class="keyword">var</span> count = someNode.childNodes.length;</span><br></pre></td></tr></table></figure>
+通过使用列表中每个节点的 <strong>previousSibling</strong>和 <strong>nextSibling</strong> 属性，可以访问同一列表中的其他节点。<br>父节点的 <strong>firstChild</strong> 和 <strong>lastChild</strong> 属性分别指向其 childNodes 列表中的第一个和最后一个节点。<br><img src="https://raw.githubusercontent.com/codingbylch/Figure_bed_for_blog/master/img_for_blog/20200323214352.png" alt="节点各个关系"><br>另外，<strong>hasChildNodes()</strong>也是一个非常有用的方法，这个方法在节点包含一或多个子节点的情况下返回 true；<br>所有节点都有的最后一个属性是 <strong>ownerDocument</strong>，该属性指向表示整个文档的文档节点document。</li>
+<li>操作节点<br>因为关系指针都是只读的，所以 DOM 提供了一些操作节点的方法。<ul>
+<li>appendChild()：用于向 childNodes 列表的末尾添加一个节点。更新完成后，appendChild()返回新增的节点。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> returnedNode = someNode.appendChild(newNode); </span><br><span class="line">alert(returnedNode == newNode);         <span class="comment">//true </span></span><br><span class="line">alert(someNode.lastChild == newNode);   <span class="comment">//true</span></span><br></pre></td></tr></table></figure></li>
+<li>insertBefore()：把节点放在 childNodes 列表中某个特定的位置上。这个方法接受两个参数：要插入的节点和作为参照的节点。插入节点后，被插入的节点会变成参照节点的前一个同胞节点（previousSibling），同时被方法返回。</li>
+<li>replaceChild()：替换节点。要插入的节点和要替换的节点。要替换的节点将由这个方法返回并从文档树中被移除，同时由要插入的节点占据其位置。</li>
+<li>removeChild()：移除节点。接受一个参数即要移除的节点，然后返回被移除的节点。<br>四个方法操作的都是某个节点的子节点，所以必须先取得父节点（使用 parentNode 属性）。</li>
+</ul>
+</li>
+<li>其他方法<br>有两个方法是所有类型的节点都有的。<ul>
+<li>cloneNode()：用于创建调用这个方法的节点的一个完全相同的副本。cloneNode()方法接受一个布尔值参数，表示是否执行深复制。执行<strong>深复制</strong>，也就是复制节点及其整个子节点树；在参数为 false 的情况下，执行浅复制，即只复制节点本身（孤儿）。</li>
+<li>normalize()：处理文档树中的文本节点。</li>
+</ul>
+</li>
+</ol>
+<h3 id="10-1-2-Document类型"><a href="#10-1-2-Document类型" class="headerlink" title="10.1.2 Document类型"></a>10.1.2 Document类型</h3><p>在浏览器中，document 对象是 HTMLDocument（继承自 Document 类型）的一个实例，表示整个 HTML 页面。document 对象是 window 对象的一个属性，因此可以将其作为全局对象来访问。Document 节点具有下列特征：</p>
+<ul>
+<li>nodeType 的值为 9； </li>
+<li>nodeName 的值为”#document”； </li>
+<li>nodeValue 的值为 null； </li>
+<li>parentNode 的值为 null； </li>
+<li>ownerDocument 的值为 null； </li>
+<li>其子节点可能是一个 DocumentType（最多一个）、Element（最多一个）、ProcessingInstruction或 Comment。</li>
+</ul>
+<ol>
+<li>文档的子节点<br>documentElement属性，该属性始终指向 HTML 页面中的<html>元素。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> html = <span class="built_in">document</span>.documentElement; <span class="comment">//取得对&lt;html&gt;的引用 </span></span><br><span class="line">alert(html === <span class="built_in">document</span>.childNodes[<span class="number">0</span>]);     <span class="comment">//true </span></span><br><span class="line">alert(html === <span class="built_in">document</span>.firstChild); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+body 属性，直接指向&lt;body&gt;元素，document.body 在 JavaScript 代码中出现的频率非常高。<br>document.doctype来访问&lt;!DOCTYPE&gt;标签，但各个浏览器的支持不一致：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> doctype = <span class="built_in">document</span>.doctype;     <span class="comment">//取得对&lt;!DOCTYPE&gt;的引用</span></span><br></pre></td></tr></table></figure></li>
+<li>文档信息<br>document 对象还有一些标准的 Document 对象所没有的属性。<br>document.title包含着&lt;title&gt;元素中的文本，修改 title 属性的值不会改变&lt;title&gt;元素。<br>对网页的请求有关的三个属性：URL、domain 和 referrer。</li>
+</ol>
+<p><strong>URL</strong> 属性：包含页面完整的 URL（即地址栏中显示的 URL）；<br><strong>domain</strong> 属性：只包含页面的域名；<br><strong>referrer</strong> 属性：保存着链接到当前页面的那个页面的 URL。<br>在这 3 个属性中，只有 domain 是可以设置的。能将这个属性设置为 URL 中不包含的域。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//假设页面来自 p2p.wrox.com 域 </span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">document</span>.domain = <span class="string">"wrox.com"</span>; <span class="comment">// 成功 </span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">document</span>.domain = <span class="string">"nczonline.net"</span>;      <span class="comment">// 出错！</span></span><br></pre></td></tr></table></figure>
+<p>可以通过设置相同的document.domain来解决不同子域的页面的相互访问。浏览器对 domain 属性还有一个限制，即如果域名一开始是“松散的”（loose），那么不能将它再设置为“紧绷的”（tight）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//假设页面来自于 p2p.wrox.com 域 </span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">document</span>.domain = <span class="string">"wrox.com"</span>;         <span class="comment">//松散的（成功） </span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">document</span>.domain = <span class="string">"p2p.wrox.com"</span>;     <span class="comment">//紧绷的（出错！）</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>查找元素<br>getElementById()和 getElementsByTagName()。<br>第一个方法，getElementById()，接收一个参数：要取得的<em>元素的 ID</em>。<br>另一个常用于取得元素引用的方法是 getElementsByTagName()。这个方法接受一个参数，即要取得<em>元素的标签名</em>，而返回的是包含零或多个元素的 NodeList。在 HTML 文档中，这个方法会返回一个 HTMLCollection 对象，作为一个“动态”集合，该对象与NodeList 非常类似。<br>namedItem()使用这个方法可以通过元素的 name 特性取得集合中的项。<br>HTMLCollection 还支持按名称访问项，对命名的项也可以使用方括号语法来访问：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myImage = images[<span class="string">"myImage"</span>];</span><br></pre></td></tr></table></figure>
+要想取得文档中的<strong>所有元素</strong>，可以向 getElementsByTagName()中传入”*”。<br>getElementsByName()：这个方法会返回带有给定 name 特性的所有元素。最常使用 getElementsByName()方法的情况是取得单选按钮：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;fieldset&gt; </span><br><span class="line">    &lt;legend&gt;Which color <span class="keyword">do</span> you prefer?&lt;<span class="regexp">/legend&gt; </span></span><br><span class="line"><span class="regexp">    &lt;ul&gt; </span></span><br><span class="line"><span class="regexp">        &lt;li&gt;&lt;input type="radio" value="red" name="color" id="colorRed"&gt; </span></span><br><span class="line"><span class="regexp">            &lt;label for="colorRed"&gt;Red&lt;/</span>label&gt;&lt;<span class="regexp">/li&gt; </span></span><br><span class="line"><span class="regexp">        &lt;li&gt;&lt;input type="radio" value="green" name="color" id="colorGreen"&gt; </span></span><br><span class="line"><span class="regexp">            &lt;label for="colorGreen"&gt;Green&lt;/</span>label&gt;&lt;<span class="regexp">/li&gt; </span></span><br><span class="line"><span class="regexp">        &lt;li&gt;&lt;input type="radio" value="blue" name="color" id="colorBlue"&gt; </span></span><br><span class="line"><span class="regexp">            &lt;label for="colorBlue"&gt;Blue&lt;/</span>label&gt;&lt;<span class="regexp">/li&gt; </span></span><br><span class="line"><span class="regexp">    &lt;/u</span>l&gt; </span><br><span class="line">&lt;<span class="regexp">/fieldset&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>特殊集合<br>略。</li>
+<li>DOM 一致性检测略。</li>
+<li>文档写入<br>write()、writeln()、open()和 close()。</li>
+</ol>
+<p><strong>write()</strong>和 <strong>writeln()</strong>方法都接受一个字符串参数，即要写入到输出流中的文本。write()会原样写入，而 writeln()则会在字符串的末尾添加一个换行符（\n）。在页面被加载的过程中，可以使用这两个方法向页面中动态地加入内容。此外，还可以使用 write()和 writeln()方法动态地包含外部资源，例如 JavaScript 文件等。如果在文档加载结束后再调用 document.write()，那么输出的内容将会重写整个页面。<br>方法 <strong>open()</strong>和 <strong>close()</strong>分别用于打开和关闭网页的输出流。</p>
+<h3 id="10-1-3-Element类型"><a href="#10-1-3-Element类型" class="headerlink" title="10.1.3 Element类型"></a>10.1.3 Element类型</h3><p>除了 Document 类型之外，Element 类型就要算是 Web 编程中最常用的类型了。Element 类型用于表现 XML 或 HTML 元素，提供了对<strong>元素标签名、子节点及特性</strong>的访问。Element 节点具有以下特征： </p>
+<ul>
+<li>nodeType 的值为 1； </li>
+<li>nodeName 的值为元素的标签名； </li>
+<li>nodeValue 的值为 null； </li>
+<li>parentNode 可能是 Document 或 Element； </li>
+<li>其子节点可能是 Element、Text、Comment、ProcessingInstruction、CDATASection 或EntityReference。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (element.tagName == <span class="string">"div"</span>)&#123; <span class="comment">//不能这样比较，很容易出错！ </span></span><br><span class="line">    <span class="comment">//在此执行某些操作 </span></span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> (element.tagName.toLowerCase() == <span class="string">"div"</span>)&#123; <span class="comment">//这样最好（适用于任何文档） </span></span><br><span class="line">    <span class="comment">//在此执行某些操作 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>HTML 元素<br>所有 HTML 元素都由 HTMLElement 类型表示，不是直接通过这个类型，也是通过它的子类型来表示。添加的这些属性分别对应于每个 HTML元素中都存在的下列标准特性。 </li>
+</ol>
+<ul>
+<li>id，元素在文档中的唯一标识符。 </li>
+<li>title，有关元素的附加说明信息，一般通过工具提示条显示出来。 </li>
+<li>lang，元素内容的语言代码，很少使用。 </li>
+<li>dir，语言的方向，值为”ltr”（left-to-right，从左至右）或”rtl”（right-to-left，从右至左），也很少使用。 </li>
+<li>className，与元素的 class特性对应，即为元素指定的 CSS 类。<br>元素中指定的所有信息，都可以通过下列 JavaScript 代码取得：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>); </span><br><span class="line">alert(div.id); <span class="comment">//"myDiv"" </span></span><br><span class="line">alert(div.className); <span class="comment">//"bd" </span></span><br><span class="line">alert(div.title); <span class="comment">//"Body text" </span></span><br><span class="line">alert(div.lang); <span class="comment">//"en" </span></span><br><span class="line">alert(div.dir); <span class="comment">//"ltr"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="2">
+<li><p>取得特性<br>getAttribute()、setAttribute()和 removeAttribute()。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>); </span><br><span class="line">alert(div.getAttribute(<span class="string">"id"</span>));         <span class="comment">//"myDiv" </span></span><br><span class="line">alert(div.getAttribute(<span class="string">"class"</span>));      <span class="comment">//"bd" </span></span><br><span class="line">alert(div.getAttribute(<span class="string">"title"</span>));      <span class="comment">//"Body text" </span></span><br><span class="line">alert(div.getAttribute(<span class="string">"lang"</span>));       <span class="comment">//"en" </span></span><br><span class="line">alert(div.getAttribute(<span class="string">"dir"</span>));        <span class="comment">//"ltr"</span></span><br></pre></td></tr></table></figure>
+<p>有两类特殊的特性，属性的值与通过 getAttribute()返回的值并不相同。<br>第一类特性就是 style，用于通过 CSS 为元素指定样式。在通过 getAttribute()访问时，返回的 style 特性值中包含的是 CSS 文本，而通过属性来访问它则会返回一个对象。<br>第二类与众不同的特性是 onclick 这样的事件处理程序。onclick 特性中包含的是 JavaScript 代码，如果通过 getAttribute()访问，则会返回相应代码的字符串。而在访问onclick 属性时，则会返回一个 JavaScript 函数。</p>
+</li>
+<li><p>设置特性<br>setAttribute()，这个方法接受两个参数：要设置的特性名和值。<br>通过 setAttribute()方法既可以操作 HTML 特性也可以操作自定义特性。通过这个方法设置的特性名会被统一转换为小写形式，即”ID”最终会变成”id”。 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">div.setAttribute(<span class="string">"id"</span>, <span class="string">"someOtherId"</span>); </span><br><span class="line">div.setAttribute(<span class="string">"class"</span>, <span class="string">"ft"</span>);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>发现这样看红宝书效率不高，暂停，略。</p>
+<h2 id="10-3-小结"><a href="#10-3-小结" class="headerlink" title="10.3 小结"></a>10.3 小结</h2><p>DOM 是语言中立的 API，用于访问和操作 HTML 和 XML 文档。DOM1 级将 HTML 和 XML 文档形象地看作一个层次化的节点树，可以使用 JavaScript 来操作这个节点树，进而改变底层文档的外观和结构。<br>DOM 由各种节点构成，简要总结如下。 </p>
+<ul>
+<li>最基本的节点类型是 Node，用于抽象地表示文档中一个独立的部分；所有其他类型都继承自Node。 </li>
+<li>Document 类型表示整个文档，是一组分层节点的根节点。在 JavaScript 中，document 对象是Document 的一个实例。使用 document 对象，有很多种方式可以查询和取得节点。 </li>
+<li>Element 节点表示文档中的所有 HTML 或 XML 元素，可以用来操作这些元素的内容和特性。 </li>
+<li>另外还有一些节点类型，分别表示文本内容、注释、文档类型、CDATA 区域和文档片段。 </li>
+</ul>
+<p>NodeList 对象都是“动态的”，这就意味着每次访问NodeList 对象，都会运行一次查询。有鉴于此，最好的办法就是尽量减少 DOM 操作。</p>
+</div><div class="tags"><a href="/tags/JS%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">JS高级程序设计</a></div><div class="post-nav"><a class="pre" href="/2020/03/24/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-JS%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-3-24-%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0-%E4%BA%8B%E4%BB%B6/">第十三章 - 事件</a><a class="next" href="/2020/03/23/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB-JS%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-3-23-%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%A3%80%E6%B5%8B/">第九章 - 客户端检测</a></div><div id="vcomment"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script><script>var notify = 'false' ? true : false;
+var verify = 'false' ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'Fr37gA6FmBqLSAcaSAxrdyOw-gzGzoHsz',
+  appKey:'YWEJwHPUixRYKn7WgjJxrKHn',
+  placeholder:'Just so so',
+  avatar:'mm',
+  guest_info:guest_info,
+  pageSize:'10'
+})</script></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/05/04/%E5%85%B6%E5%AE%83-2020-05-04-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3/">操作系统相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/17/%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3-2020-04-17-TCP%E6%8F%A1%E6%89%8B%E3%80%81%E6%8C%A5%E6%89%8B%E6%80%BB%E7%BB%93/">TCP握手、挥手总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/16/JS%E7%9B%B8%E5%85%B3-2020-04-16-%E7%AC%AC%E5%8D%81%E7%AB%A0-DOM%E5%9F%BA%E7%A1%80/">第十章-DOM基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/10/%E6%A1%86%E6%9E%B6-webpack-2020-04-10-Webpack%E5%85%A5%E9%97%A8/">Webpack入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/08/CSS%E7%9B%B8%E5%85%B3-2020-04-08-CSS%E5%B8%83%E5%B1%80%E7%9B%B8%E5%85%B3/">CSS布局相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/03/JS%E7%9B%B8%E5%85%B3-2020-04-03-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3ES6-%E7%B1%BB/">Class的基本语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/02/JS%E7%9B%B8%E5%85%B3-2020-04-02-Promise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/">Promise与异步编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/02/JS%E7%9B%B8%E5%85%B3-2020-04-02-%E5%B8%B8%E8%A7%81%E7%9A%84DOM%E6%93%8D%E4%BD%9C%E6%96%B9%E5%BC%8F/">常见的DOM操作方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/01/JS%E7%9B%B8%E5%85%B3-2020-04-01-Ajax%E4%B8%8EComet/">Ajax的一些基本操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/31/CSS%E7%9B%B8%E5%85%B3-2020-03-31-CSS-%E8%83%8C%E6%99%AF%E4%B8%8E%E8%BE%B9%E6%A1%86/">CSS - 背景与边框</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://chochi1st.github.io" title="Chochi" target="_blank">Chochi</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">心平气和.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

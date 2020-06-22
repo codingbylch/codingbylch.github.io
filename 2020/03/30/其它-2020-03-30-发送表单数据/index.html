@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="个人学习记录博客, 从这里开始吧"><title>HTML - 表单相关 | 心平气和</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.1/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.1/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.1/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">HTML - 表单相关</h1><a id="logo" href="/.">心平气和</a><p class="description">^_^</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tags"> 标签</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/demoShow/"><i class="fa fa-reddit-alien"> 演示</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">HTML - 表单相关</h1><div class="post-meta">Mar 30, 2020<span> | </span><span class="category"><a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><a class="disqus-comment-count" href="/2020/03/30/%E5%85%B6%E5%AE%83-2020-03-30-%E5%8F%91%E9%80%81%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE/#vcomment"><span class="valine-comment-count" data-xid="/2020/03/30/%E5%85%B6%E5%AE%83-2020-03-30-%E5%8F%91%E9%80%81%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE/"></span><span> 条评论</span></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#发送表单数据"><span class="toc-number">1.</span> <span class="toc-text">发送表单数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#旧式浏览器表单问题"><span class="toc-number">2.</span> <span class="toc-text">旧式浏览器表单问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表单数据校验"><span class="toc-number">3.</span> <span class="toc-text">表单数据校验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用内置表单数据校验"><span class="toc-number">3.1.</span> <span class="toc-text">使用内置表单数据校验</span></a></li></ol></li></ol></div></div><div class="post-content"><p>简介：主要内容是表单是如何发送数据的、旧式浏览器表单问题、表单数据校验。</p>
+<a id="more"></a>
+
+
+<h2 id="发送表单数据"><a href="#发送表单数据" class="headerlink" title="发送表单数据"></a>发送表单数据</h2><p>form标签的method处填写，最常见的就是GET方法和POST方法：</p>
+<ul>
+<li>GET方法：GET方法是浏览器使用的方法，请求服务器返回给定的资源。如果使用该方法发送一个表单，那么发送到服务器的数据将被追加到URL。</li>
+<li>POST方法：当使用POST方法提交表单时，没有数据会附加到URL，而是在请求主体中包含了数据：<br><img src="https://raw.githubusercontent.com/codingbylch/Figure_bed_for_blog/master/img_for_blog/20200330131629.png" alt="network-monitor"><br>如果要发送大量数据，那么POST方法是首选的，因为一些浏览器限制了URL的大小。而且敏感数据也不应用GET发送。</li>
+</ul>
+<h2 id="旧式浏览器表单问题"><a href="#旧式浏览器表单问题" class="headerlink" title="旧式浏览器表单问题"></a>旧式浏览器表单问题</h2><p>优雅地降级(Graceful degradation)是web开发者最好的朋友。<br>处理旧式浏览器不仅仅是表单问题。而是一整套技术，先放着。</p>
+<h2 id="表单数据校验"><a href="#表单数据校验" class="headerlink" title="表单数据校验"></a>表单数据校验</h2><p>不同类型的表单数据校验：</p>
+<ul>
+<li><p>客户端校验：发生在浏览器端，表单数据被提交到服务器之前</p>
+<table>
+<thead>
+<tr>
+<th>JS校验</th>
+<th>HTML5内置校验</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>可完全自定义实现方式</td>
+<td>无需JS，性能更好，不能自定义实现方式</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>服务端校验：发生在浏览器提交数据并被服务端接收以后，将数据写入数据库之前。若没通过校验，则从服务器端返回错误消息，并告诉浏览器端发生错误的具体位置和原因。服务器端的校验是对抗错误/恶意数据的最后防线。</p>
+</li>
+</ul>
+<p><strong>一般将两种校验一起使用</strong>来确保数据的正确性以及安全性。</p>
+<h3 id="使用内置表单数据校验"><a href="#使用内置表单数据校验" class="headerlink" title="使用内置表单数据校验"></a>使用内置表单数据校验</h3><p>HTML5 一个特别有用的新功能：可以在不写一行脚本代码的情况下，即对用户的输入进行数据校验，这都是通过<strong>表单元素的校验属性</strong>实现的。</p>
+<p>关于在input上的校验：</p>
+<ul>
+<li>CSS伪类:valid和:invalid可进行特殊样式化：<br>元素通过校验时:valid生效，未通过时:invalid生效。</li>
+<li>required属性：当设置此属性时，如果输入为空，该表单将不会提交（并将显示错误消息）。</li>
+<li>pattern使用正则表达式：符合规则才会提交。</li>
+<li>minlength和maxlength：限制字符输入长度。</li>
+<li>无法改变错误信息的显示：因为时HTML5默认的，所以无法使用CSS来改变样式。</li>
+</ul>
+<p>要自定义消息的外观和文本，需要使用JS。<br>HTML5提供<a href="https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#the-constraint-validation-api" target="_blank" rel="noopener">constraint validation API</a>来检测和自定义表单元素的状态，还可以改变错误信息的文本，比如setCustomValidity()方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> email = <span class="built_in">document</span>.getElementById(<span class="string">"mail"</span>);</span><br><span class="line"></span><br><span class="line">email.addEventListener(<span class="string">"input"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (email.validity.typeMismatch) &#123;</span><br><span class="line">    email.setCustomValidity(<span class="string">"I expect an e-mail, darling!"</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    email.setCustomValidity(<span class="string">""</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>支持约束校验的API：button,fieldset,input,output,select,textarea等HTML元素。详细约束校验API及属性、方法请浏览<a href="https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Forms/Data_form_validation#使用_JavaScript校验表单" target="_blank" rel="noopener">使用 JavaScript校验表单</a>。<br>对于旧的浏览器，可使用polyfill来弥补其对约束校验API支持的不足（即考虑兼容性）。<br>form标签的novalidate属性可关闭浏览器的自动校验。</p>
+<ul>
+<li>不使用内建 API 时的表单校验<br>有时，例如使用旧版浏览器或自定义小部件，您将无法（或不希望）使用约束校验API。 在这种情况下，您仍然可以使用 JavaScript 来校验您的表单。<br>要校验表单，您必须问自己几个问题：<ul>
+<li>我应该进行什么样的校验？</li>
+<li>如果表单校验失败，我该怎么办?</li>
+<li>如何帮助用户纠正无效数据?</li>
+</ul>
+</li>
+</ul>
+<p>建立自己的校验系统并不难。 <strong>困难的部分是使其足够通用</strong>，以跨平台和任何形式使用它可以创建。</p>
+</div><div class="tags"><a href="/tags/HTML/">HTML</a></div><div class="post-nav"><a class="pre" href="/2020/03/31/CSS%E7%9B%B8%E5%85%B3-2020-03-31-CSS%E7%9B%92%E6%A8%A1%E5%9E%8B/">CSS - 层叠与继承、选择器、盒模型</a><a class="next" href="/2020/03/30/%E5%85%B6%E5%AE%83-2020-03-30-%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84/">HTML - 互联网是如何工作的</a></div><div id="vcomment"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script><script>var notify = 'false' ? true : false;
+var verify = 'false' ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'Fr37gA6FmBqLSAcaSAxrdyOw-gzGzoHsz',
+  appKey:'YWEJwHPUixRYKn7WgjJxrKHn',
+  placeholder:'Just so so',
+  avatar:'mm',
+  guest_info:guest_info,
+  pageSize:'10'
+})</script></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/05/04/%E5%85%B6%E5%AE%83-2020-05-04-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3/">操作系统相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/17/%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3-2020-04-17-TCP%E6%8F%A1%E6%89%8B%E3%80%81%E6%8C%A5%E6%89%8B%E6%80%BB%E7%BB%93/">TCP握手、挥手总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/16/JS%E7%9B%B8%E5%85%B3-2020-04-16-%E7%AC%AC%E5%8D%81%E7%AB%A0-DOM%E5%9F%BA%E7%A1%80/">第十章-DOM基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/10/%E6%A1%86%E6%9E%B6-webpack-2020-04-10-Webpack%E5%85%A5%E9%97%A8/">Webpack入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/08/CSS%E7%9B%B8%E5%85%B3-2020-04-08-CSS%E5%B8%83%E5%B1%80%E7%9B%B8%E5%85%B3/">CSS布局相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/03/JS%E7%9B%B8%E5%85%B3-2020-04-03-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3ES6-%E7%B1%BB/">Class的基本语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/02/JS%E7%9B%B8%E5%85%B3-2020-04-02-Promise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/">Promise与异步编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/02/JS%E7%9B%B8%E5%85%B3-2020-04-02-%E5%B8%B8%E8%A7%81%E7%9A%84DOM%E6%93%8D%E4%BD%9C%E6%96%B9%E5%BC%8F/">常见的DOM操作方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/01/JS%E7%9B%B8%E5%85%B3-2020-04-01-Ajax%E4%B8%8EComet/">Ajax的一些基本操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/31/CSS%E7%9B%B8%E5%85%B3-2020-03-31-CSS-%E8%83%8C%E6%99%AF%E4%B8%8E%E8%BE%B9%E6%A1%86/">CSS - 背景与边框</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://chochi1st.github.io" title="Chochi" target="_blank">Chochi</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">心平气和.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

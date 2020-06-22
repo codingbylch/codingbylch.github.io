@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="个人学习记录博客, 从这里开始吧"><title>操作系统相关 | 心平气和</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.1/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.1/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.1/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">操作系统相关</h1><a id="logo" href="/.">心平气和</a><p class="description">^_^</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tags"> 标签</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/demoShow/"><i class="fa fa-reddit-alien"> 演示</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">操作系统相关</h1><div class="post-meta">May 4, 2020<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><a class="disqus-comment-count" href="/2020/05/04/%E5%85%B6%E5%AE%83-2020-05-04-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3/#vcomment"><span class="valine-comment-count" data-xid="/2020/05/04/%E5%85%B6%E5%AE%83-2020-05-04-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3/"></span><span> 条评论</span></a><div class="post-content"><p>简介：进程方面的一些基本概念复习，来自王道《操作系统》</p>
+<a id="more"></a>
+<h2 id="操作系统相关"><a href="#操作系统相关" class="headerlink" title="操作系统相关"></a>操作系统相关</h2><h3 id="并发与并行"><a href="#并发与并行" class="headerlink" title="并发与并行"></a>并发与并行</h3><p>并发：<strong>一段时间间隔</strong>多道程序运行<br>并行：<strong>某一时刻</strong>多个程序运行</p>
+<h3 id="共享"><a href="#共享" class="headerlink" title="共享"></a>共享</h3><p>共享：指的是系统中资源可供内存中多个并发执行的进程共同使用。<br>有两种资源共享的方式：</p>
+<ol>
+<li>互斥共享方式：规定<strong>一段时间内只能一个进程访问资源</strong>，其它进程需要等待。这个资源被称作<strong>临界资源</strong>。大多数物理设备、软件中使用的栈、变量等都属于临界资源。</li>
+<li>同时访问方式：允许资源在一段时间内被多个进程“同时”访问，这里的“同时”通常是宏观上的。</li>
+</ol>
+<h3 id="虚拟"><a href="#虚拟" class="headerlink" title="虚拟"></a>虚拟</h3><p><strong>虚拟</strong>：指的是把一个物理上的实体变为若干个逻辑上的对应物。<br>用于实现虚拟的技术，称作<strong>虚拟技术</strong>。操作系统利用多种虚拟技术实现了虚拟处理器、虚拟内存、虚拟外部设备等。<br><strong>虚拟处理器技术</strong>：利用多道程序设计技术，让多个程序可以分时使用一个处理器。即把一个物理上的CPU虚拟化成了多个逻辑上的CPU（虚拟处理器）。<br><strong>虚拟存储器技术</strong>：把一个物理存储器变为虚拟存储器，在逻辑上扩充存储器的容量。我们把用户感觉到的存储器称作虚拟存储器。<br><strong>虚拟I/O</strong>：把一台物理I/O虚拟化为多个逻辑上的I/O设备。<br>操作系统的虚拟技术可归纳为：<strong>时分复用技术</strong>：如处理器的分时共享；<strong>空分复用技术</strong>：如虚拟存储器。</p>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p><strong>进程实体</strong>：由程序段、相关数据段、PCB三部分组成。<br><strong>进程的定义</strong>：进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位。<br><strong>进程的五种状态</strong>：创建态、就绪态、运行态、阻塞态、结束态。</p>
+<ul>
+<li>运行态：单处理机下，每个时刻最多一个进程处于运行态；</li>
+<li>就绪态：进程获得了除处理器资源外的一切资源，一旦获得处理器资源就能进入运行态；</li>
+<li>阻塞态：进程因为等待某一事件而暂停运行。如等待某资源可用/等待输入输出。即使处理器空间也不会运行。</li>
+<li>创建态：进程正在被创建，还未到就绪态；</li>
+<li>结束态：进程可能正常结束或者其他原因中断退出。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/codingbylch/Figure_bed_for_blog/master/img_for_blog/20200504181058.png" alt="5种状态转换"></p>
+<h3 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h3><p>高级通信方法主要有三种：</p>
+<ul>
+<li><p>共享存储<br>在通信的进程之间存在一块可直接访问的共享空间。通过对这个共享空间的读/写操作来实现进程间的通信。<br><img src="https://raw.githubusercontent.com/codingbylch/Figure_bed_for_blog/master/img_for_blog/20200504181543.png" alt="共享存储"></p>
+</li>
+<li><p>消息传递<br>进程间的数据交换是以格式化的信息（Message）为单位的。若进程之间不存在共享空间，必须利用操作系统提供的消息传递方法来实现进程通信。即进程间通过发送消息、接收消息的原语来进行数据交换。<br>有两种消息传递的方式：</p>
+<ul>
+<li>直接通信方式：发送进程把消息发送给接收进程，并将其挂载到接收进程的消息缓冲队列中，接受进程通过消息缓冲队列取得消息。<br><img src="https://raw.githubusercontent.com/codingbylch/Figure_bed_for_blog/master/img_for_blog/20200504182627.png" alt=""></li>
+<li>间接通信方式：发送进程把消息发送到某个中间实体，接收进程从中间实体取得消息。这种中间实体一般称作信箱。</li>
+</ul>
+</li>
+<li><p>管道通信<br>所谓的管道，指的是连接一个读进程和写进程的一个共享文件（又称pipe文件），以实现两者之间的通信。<strong>半双工通信</strong>。<br><img src="https://raw.githubusercontent.com/codingbylch/Figure_bed_for_blog/master/img_for_blog/20200504182950.png" alt=""><br>管道通信可以看作是共享存储的优化和发展。在共享存储中，同一时刻只允许一种操作，管道是半双工通信，要求只能一边写入，一边读出，只要管道中有数据就能进行读取，不会因为其它进程进行写操作而堵塞读操作，因为管道要求写进程需要把缓冲区写满，才能让读进程读取。</p>
+</li>
+</ul>
+<h3 id="线程的概念"><a href="#线程的概念" class="headerlink" title="线程的概念"></a>线程的概念</h3><p>是基本的CPU执行单元，也是程序执行流的最小单元。线程是进程中的一个实体，<strong>是系统独立调度和分派的基本单位</strong>。线程本身不拥有系统资源，而是与进程中其它线程共享进程所拥有的资源。<br>线程也有就绪、阻塞、运行三种基本状态。<br>而<strong>进程是拥有资源的基本单位</strong>。<br><strong>引入线程的目的</strong>：为了减小程序在并发执行所付出的时空开销。<br>可以认为线程是“轻量级的进程”</p>
+<h3 id="调度的概念"><a href="#调度的概念" class="headerlink" title="调度的概念"></a>调度的概念</h3><p>为什么需要有调度：因为进程数量通常远大于处理器的个数，这时候就会发生进程间争用处理器资源的现象。我们需要一种算法来实现对处理器资源的合理分配。</p>
+<h3 id="进程调度方式"><a href="#进程调度方式" class="headerlink" title="进程调度方式"></a>进程调度方式</h3><ol>
+<li>非剥夺调度方式</li>
+<li>剥夺调度方式</li>
+</ol>
+<h3 id="典型的调度算法"><a href="#典型的调度算法" class="headerlink" title="典型的调度算法"></a>典型的调度算法</h3><ol>
+<li><strong>先来先服务调度算法</strong>：每次从就绪队列中选择最先进入该队列的进程，将处理器分配给它。属于不可剥夺算法。特点：算法简单，但效率低；对长作业有利，对短作业不利；有利于CPU繁忙型作业，不利于I/O繁忙型作业。</li>
+<li><strong>短作业优先调度算法</strong>：从后备队列中选择一个运行时间最短的作业。对长时间作业不利，可能会造成“饥饿”现象（区别于死锁）</li>
+<li><strong>优先级调度算法</strong>：每次从后背队列中选取优先级最高的作业。<ul>
+<li>非剥夺式优先级调度算法</li>
+<li>剥夺式优先级调度算法</li>
+<li>静态优先级调度算法</li>
+<li>动态优先级调度算法</li>
+</ul>
+</li>
+<li><strong>高响应比优先调度算法</strong>：选取响应比最高的作业。先来先服务+短作业：克服了饥饿状态兼顾了长作业。</li>
+<li><strong>时间片轮转调度算法</strong>：主要适用于分时系统。对于时间片的大小应该适当设置。</li>
+<li><strong>多级反馈队列调度算法</strong>：以上的综合</li>
+</ol>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p><strong>死锁的定义</strong>：多个进程因为竞争资源而陷入了相互等待的情况。若没有外力作用，这些进程无法向前推进。<br><strong>为什么会产生死锁</strong>：</p>
+<ul>
+<li>系统资源的竞争：系统中有不可剥夺的资源，通常不够满足所有进程的需要，使得进程在争夺资源的过程中陷入了相互等待。</li>
+<li>进程推进顺序非法：如信号量使用不当造成两个进程相互等待对方发送消息。</li>
+</ul>
+<p><strong>产生死锁的必要条件</strong>：<br>四个条件只要任一不成立，死锁就不会发生。</p>
+<ol>
+<li>互斥条件：某段事件进程独占资源</li>
+<li>不剥夺条件：资源在被使用时无法被强行剥夺</li>
+<li>请求并保持条件：进程保持着资源同时请求另一资源，对保持的资源不释放</li>
+<li>循环等待条件：进程间循环等待资源</li>
+</ol>
+<p><strong>死锁的处理策略</strong>：</p>
+<ul>
+<li>死锁预防：破环四个必要条件之一。</li>
+<li>死锁避免：在资源动态分配的过程中，使用某种方法防止系统进入不安全的状态来避免死锁。<ul>
+<li>银行家算法</li>
+</ul>
+</li>
+<li>死锁检测与解除：<ul>
+<li>死锁检测：系统死锁可以利用资源分配图来进行查看。<strong>通过简化资源分配图可以检测是否为死锁状态</strong>。死锁的状态图是完全不能简化的，这称作死锁定理。</li>
+<li>死锁解除：1）资源剥夺法；2）撤销进程法；3）进程回退法</li>
+</ul>
+</li>
+</ul>
+</div><div class="tags"><a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></div><div class="post-nav"><a class="next" href="/2020/04/17/%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3-2020-04-17-TCP%E6%8F%A1%E6%89%8B%E3%80%81%E6%8C%A5%E6%89%8B%E6%80%BB%E7%BB%93/">TCP握手、挥手总结</a></div><div id="vcomment"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script><script>var notify = 'false' ? true : false;
+var verify = 'false' ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'Fr37gA6FmBqLSAcaSAxrdyOw-gzGzoHsz',
+  appKey:'YWEJwHPUixRYKn7WgjJxrKHn',
+  placeholder:'Just so so',
+  avatar:'mm',
+  guest_info:guest_info,
+  pageSize:'10'
+})</script></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/05/04/%E5%85%B6%E5%AE%83-2020-05-04-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3/">操作系统相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/17/%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3-2020-04-17-TCP%E6%8F%A1%E6%89%8B%E3%80%81%E6%8C%A5%E6%89%8B%E6%80%BB%E7%BB%93/">TCP握手、挥手总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/16/JS%E7%9B%B8%E5%85%B3-2020-04-16-%E7%AC%AC%E5%8D%81%E7%AB%A0-DOM%E5%9F%BA%E7%A1%80/">第十章-DOM基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/10/%E6%A1%86%E6%9E%B6-webpack-2020-04-10-Webpack%E5%85%A5%E9%97%A8/">Webpack入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/08/CSS%E7%9B%B8%E5%85%B3-2020-04-08-CSS%E5%B8%83%E5%B1%80%E7%9B%B8%E5%85%B3/">CSS布局相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/03/JS%E7%9B%B8%E5%85%B3-2020-04-03-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3ES6-%E7%B1%BB/">Class的基本语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/02/JS%E7%9B%B8%E5%85%B3-2020-04-02-Promise%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/">Promise与异步编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/02/JS%E7%9B%B8%E5%85%B3-2020-04-02-%E5%B8%B8%E8%A7%81%E7%9A%84DOM%E6%93%8D%E4%BD%9C%E6%96%B9%E5%BC%8F/">常见的DOM操作方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/01/JS%E7%9B%B8%E5%85%B3-2020-04-01-Ajax%E4%B8%8EComet/">Ajax的一些基本操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/31/CSS%E7%9B%B8%E5%85%B3-2020-03-31-CSS-%E8%83%8C%E6%99%AF%E4%B8%8E%E8%BE%B9%E6%A1%86/">CSS - 背景与边框</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://chochi1st.github.io" title="Chochi" target="_blank">Chochi</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">心平气和.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
